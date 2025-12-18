@@ -1,0 +1,38 @@
+services:
+    data:
+        container_name: data
+        image: mariadb:latest
+        
+        environment:
+            - MARIADB_ROOT_PASSWORD=root
+
+        volumes:
+            - "./db:/docker-entrypoint-initdb.d"
+        networks:
+            - tp3_network
+
+
+    script:
+        container_name: script
+        image: php:8.2-fpm-mysqli
+
+        volumes:
+            - "./src:/app"
+
+        networks:
+            - tp3_network
+
+    http:
+        container_name: http
+        image: nginx:latest
+
+        networks:
+            - tp3_network
+        ports:
+            - 8080:80
+        volumes:
+            - "./src:/app"
+            - "./config/default.conf:/etc/nginx/conf.d/default.conf:ro"
+
+networks:
+    tp3_network:
