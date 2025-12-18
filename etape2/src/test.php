@@ -6,7 +6,7 @@
     }
 
 	if ($mysqli->query("INSERT INTO mabase.matable (compteur) SELECT count(*)+1 FROM mabase.matable;") === TRUE) {
-	    printf("Count updated\n<br />", $result->num_rows);
+	    printf("Count updated\n<br />");
 	}
 
 	if ($result = $mysqli->query("SELECT * FROM mabase.matable")) {
